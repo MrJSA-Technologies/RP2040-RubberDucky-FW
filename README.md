@@ -9,3 +9,6 @@ You can find the Payloads for the RubberDucky in the [official Hak5 Repository](
 3. After it shows up set the switch to SETUP.
 4. Copy the adafruit-circuitpython-raspberry_pi_pico-de_[Language]-[Version].uf2 for you Language, to the root of the RubberDucky.
 5. The RubberDucky will reboot and connect as CIRCUITPY.
+6. Download the latest adafruit-circuitpython-bundle-8.x-mpy-[Date].zip from the [Adafruit Repository](https://github.com/adafruit/Adafruit_CircuitPython_Bundle/releases)
+7. In the lib Folder copy the adafruit_hid, asyncio and adafruit_wsgi folders aswell as the adafruit_debouncer.mpy and adafruit_ticks.mpy files into the lib folder on the RubberDucky.
+8. 
