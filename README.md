@@ -7,13 +7,13 @@ You can find the Payloads for the RubberDucky in the [official Hak5 Repository](
 ###The fast way
 
 1. Download the latest release.
-2. Set the switch to BOOTSEL
-3. When it shows up set the switch to PAYLOAD
+2. Set the switch to `BOOTSEL`
+3. When it shows up set the switch to `PAYLOAD`
 4. Copy the `*.uf2` file in the RubberDucky folder to the root of your RubberDucky
 5. After it reboots copy the rest of the files in the RubberDucky folder to the root of your RubberDucky
-6. Put your payload to the root of your RubberDucky and rename it to payload.dd
-7. Set the switch to Stealth and you are ready to go.
-8. To change the payload set the switch to PAYLOAD again and connect it to your device.
+6. Put your payload to the root of your RubberDucky and rename it to `payload.dd`
+7. Set the switch to `Stealth` and you are ready to go.
+8. To change the payload set the switch to `PAYLOAD` again and connect it to your device.
 
 ### The difficult way
 
