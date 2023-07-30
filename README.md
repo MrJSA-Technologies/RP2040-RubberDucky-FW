@@ -4,7 +4,7 @@ You can find the Payloads for the RubberDucky in the [official Hak5 Repository](
 
 ## Installation
 
-###The fast way
+### The fast way
 
 1. Download the latest release.
 2. Set the switch to `BOOTSEL`
