@@ -5,3 +5,7 @@ You can find the Payloads for the RubberDucky in the [official Hak5 Repository](
 ## Installation
 
 1. Download the latest Adafruit Citcuit Python from the [Adafruit Repository](https://github.com/adafruit/circuitpython/releases)
+2. Plug the RubberDucky into the Computer with the switch set to BOOTSEL. It will show up as a removable media device.
+3. After it shows up set the switch to SETUP.
+4. Copy the adafruit-circuitpython-raspberry_pi_pico-de_[Language]-[Version].uf2 for you Language, to the root of the RubberDucky.
+5. The RubberDucky will reboot and connect as CIRCUITPY.
