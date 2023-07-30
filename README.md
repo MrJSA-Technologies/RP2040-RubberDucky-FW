@@ -6,7 +6,7 @@ You can find the Payloads for the RubberDucky in the [official Hak5 Repository](
 
 ### The fast way
 
-1. Download the latest release.
+1. Download the latest release for your language.
 2. Set the switch to `BOOTSEL`
 3. When it shows up set the switch to `PAYLOAD`
 4. Copy the `*.uf2` file in the `RubberDucky` folder to the root of your RubberDucky
@@ -26,7 +26,7 @@ You can find the Payloads for the RubberDucky in the [official Hak5 Repository](
 7. In the lib Folder copy the `adafruit_hid`, `asyncio` and `adafruit_wsgi` folders aswell as the `adafruit_debouncer.mpy` and `adafruit_ticks.mpy` files into the `lib` folder on the RubberDucky.
 8. Download the latest `circuitpython-keyboard-layouts-8.x-mpy-[Date]` from [Neradoc](https://github.com/Neradoc/Circuitpython_Keyboard_Layouts/releases)
 9. Copy all files of the `lib` Folder into the `lib` folder of the RubberDucky.
-10. Copy the files `boot.py`, `code.py` and `duckyinpython.py` of the latest release to the root of your RubberDucky.
+10. Copy the files `boot.py`, `code.py` and `duckyinpython.py` of the latest release for your language to the root of your RubberDucky.
 11. Download or create your own payload, copy it to the root of your RubberDucky and rename it to `payload.dd`.
 12. Unplug your RubberDucky and set the switch to `STEALTH` and you are ready to go.
 13. To change the payload set the switch to `PAYLOAD` again and connect it to your device.
