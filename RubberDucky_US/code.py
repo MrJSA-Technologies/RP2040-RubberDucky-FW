@@ -4,7 +4,7 @@ import time
 import digitalio
 from board import *
 import board
-from duckyinpython import *
+from rubberducky import *
 
 # sleep at the start to allow the device to be recognized by the host computer
 time.sleep(.5)
