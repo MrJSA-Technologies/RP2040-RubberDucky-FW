@@ -6,7 +6,7 @@ You can find the Payloads for the RubberDucky in the [official Hak5 Repository](
 
 ### The fast way
 
-1. Download the latest release.
+1. Download the latest release for your language.
 2. Set the switch to `BOOTSEL`
 3. When it shows up set the switch to `PAYLOAD`
 4. Copy the `*.uf2` file in the `RubberDucky` folder to the root of your RubberDucky
