@@ -9,11 +9,11 @@ import pwmio
 import asyncio
 import usb_hid
 from adafruit_hid.keyboard import Keyboard
-
-# comment out these lines for non_US keyboards
+#  Only for US keyboard layout
 from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS as KeyboardLayout
 from adafruit_hid.keycode import Keycode
 
+#  The Rubberducky payload commands translated for RP2040
 duckyCommands = {
     'WINDOWS': Keycode.WINDOWS, 'GUI': Keycode.GUI,
     'APP': Keycode.APPLICATION, 'MENU': Keycode.APPLICATION, 'SHIFT': Keycode.SHIFT,
@@ -40,22 +40,21 @@ duckyCommands = {
 
 def convertLine(line):
     newline = []
-    # print(line)
-    # loop on each key - the filter removes empty values
+#  loop on each key - the filter removes empty values
     for key in filter(None, line.split(" ")):
         key = key.upper()
-        # find the keycode for the command in the list
+#  find the keycode for the command in the list
         command_keycode = duckyCommands.get(key, None)
         if command_keycode is not None:
-            # if it exists in the list, use it
+#  if it exists in the list, use it
             newline.append(command_keycode)
         elif hasattr(Keycode, key):
-            # if it's in the Keycode module, use it (allows any valid keycode)
+#  if it's in the Keycode module, use it (allows any valid keycode)
             newline.append(getattr(Keycode, key))
         else:
-            # if it's not a known key name, show the error for diagnosis
+#  if it's not a known key name, show the error for diagnosis
             print(f"Unknown key: <{key}>")
-    # print(newline)
+#  print(newline)
     return newline
 
 def runScriptLine(line):
@@ -68,9 +67,10 @@ def sendString(line):
 
 def parseLine(line):
     global defaultDelay
+#  Ignore payload comments
     if(line[0:3] == "REM"):
-        # ignore ducky script comments
         pass
+#  Handling of other payload commands
     elif(line[0:5] == "DELAY"):
         time.sleep(float(line[6:])/1000)
     elif(line[0:6] == "STRING"):
@@ -96,8 +96,8 @@ kbd = Keyboard(usb_hid.devices)
 layout = KeyboardLayout(kbd)
 
 def getProgrammingStatus():
-    # check GP0 for setup mode
-    # see setup mode for instructions
+#  check GP0 for setup mode
+#  see setup mode for instructions
     progStatusPin = digitalio.DigitalInOut(GP0)
     progStatusPin.switch_to_input(pull=digitalio.Pull.UP)
     progStatus = not progStatusPin.value
@@ -116,7 +116,7 @@ def runScript(file):
             line = line.rstrip()
             if(line[0:6] == "REPEAT"):
                 for i in range(int(line[7:])):
-                    #repeat the last command
+#  repeat the last command
                     parseLine(previousLine)
                     time.sleep(float(defaultDelay)/1000)
             else:
@@ -139,56 +139,43 @@ async def blink_pico_led(led):
     led_state = False
     while True:
         if led_state:
-            #led_pwm_up(led)
-            #print("led up")
             for i in range(100):
-                # PWM LED up and down
+#  PWM LED up and down
                 if i < 50:
                     led.duty_cycle = int(i * 2 * 65535 / 100)  # Up
                 await asyncio.sleep(0.01)
             led_state = False
         else:
-            #led_pwm_down(led)
-            #print("led down")
             for i in range(100):
-                # PWM LED up and down
+#  PWM LED up and down
                 if i >= 50:
                     led.duty_cycle = 65535 - int((i - 50) * 2 * 65535 / 100)  # Down
                 await asyncio.sleep(0.01)
             led_state = True
         await asyncio.sleep(0)
 
-# sleep at the start to allow the device to be recognized by the host computer
+#  Start of Code script
+
+#  sleep at the start to allow the device to be recognized by the host computer
 time.sleep(.5)
-
 supervisor.runtime.autoreload = False
-
-#if(board.board_id == 'raspberry_pi_pico'):
 led = pwmio.PWMOut(board.LED, frequency=5000, duty_cycle=0)
-#elif(board.board_id == 'raspberry_pi_pico_w'):
-#    led = digitalio.DigitalInOut(board.LED)
-#    led.switch_to_output()
-
 progStatus = False
 progStatus = getProgrammingStatus()
 print("progStatus", progStatus)
 if(progStatus == False):
     print("Finding payload")
-    # not in setup mode, inject the payload
+#  not in setup mode, inject the payload
     payload = selectPayload()
     print("Running ", payload)
     runScript(payload)
-
     print("Done")
 else:
     print("Update your payload")
-
 led_state = False
-
 async def main_loop():
     global led,button1
     button_task = asyncio.create_task(monitor_buttons(button1))
     pico_led_task = asyncio.create_task(blink_pico_led(led))
     await asyncio.gather(pico_led_task, button_task)
-
 asyncio.run(main_loop())
